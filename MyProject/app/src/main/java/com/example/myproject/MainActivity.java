@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private GridLayout randomLayout(){
         GridLayout g_layout=(GridLayout)findViewById(R.id.mygridl);
         for (int i=0;i<64;i++){
-            int numRandom=(int)(Math.random()*5);
+            int numRandom=(int)(Math.random()*6);
             Resources res=getResources();
             ImageView img = new ImageView(this);
             img.setImageDrawable(res.getDrawable(ArrayImage[numRandom]));
