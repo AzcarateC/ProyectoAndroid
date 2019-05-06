@@ -1,19 +1,26 @@
 package com.example.myproject;
 
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import java.security.cert.PolicyNode;
+import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 import android.os.Bundle;
+import android.support.v7.widget.ViewUtils;
+import android.util.Pair;
+import android.view.DragEvent;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-    private int ArrayImage[]={
+    private int ArrayImage[] = {
             R.drawable.blue,
             R.drawable.green,
             R.drawable.orange,
@@ -24,77 +31,67 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.randomLayout();
-
     }
-    private GridLayout randomLayout(){
-        GridLayout g_layout=(GridLayout)findViewById(R.id.mygridl);
-        for (int i=0;i<64;i++){
-            int numRandom=(int)(Math.random()*5);
-            Resources res=getResources();
-            ImageView img = new ImageView(this);
-            img.setImageDrawable(res.getDrawable(ArrayImage[numRandom]));
-            g_layout.addView(img,135,135);
+
+    private int[][] matrizImage = new int[8][8];
+
+    private GridLayout randomLayout() {
+        final GridLayout g_layout = (GridLayout) findViewById(R.id.mygridl);
+        for (int fila = 0; fila < 8; fila++) {
+            for (int colum = 0; colum < 8; colum++) {
+                int numRandom = (int) (Math.random()*6);
+                Resources res = getResources();
+                ImageView img = new ImageView(this);
+                img.setImageDrawable(res.getDrawable(ArrayImage[numRandom]));
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        v.setSelected(!v.isSelected());
+                        if (v.isSelected()) {
+                            setSingleEvent(g_layout);
+                        }
+                    }
+                });
+                g_layout.addView(img, 30, 30);
+                matrizImage[fila][colum] = numRandom;
+            }
         }
         return g_layout;
     }
+
+    private void setSingleEvent(final GridLayout g_layout) {
+        for (int i = 0; i < g_layout.getChildCount(); i++) {
+            ImageView img = (ImageView) g_layout.getChildAt(i);
+            final int fin = i;
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setSinlgeEvent2(g_layout, fin);
+                }
+            });
+        }
+    }
+
+    private void setSinlgeEvent2(final GridLayout g_layout, final int f) {
+        for (int i = 0; i < g_layout.getChildCount(); i++) {
+            ImageView im2 = (ImageView) g_layout.getChildAt(i);
+            final int fin = i;
+            im2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    
+                    Toast.makeText(MainActivity.this, "Primer elemento" + f + " segundo:" + fin, Toast.LENGTH_SHORT).show();
+                    setSingleEvent(g_layout);
+                    
+
+                }
+            });
+        }
+
+    }
+
 }
-
-/*  public ImageView imgB= (ImageView)findViewById(R.id.imageView);
-    public ImageView imgG= (ImageView)findViewById(R.id.imageView2);
-    public ImageView imgR= (ImageView)findViewById(R.id.imageView6);
-    public ImageView imgY= (ImageView)findViewById(R.id.imageView5);
-    public ImageView imgP= (ImageView)findViewById(R.id.imageView4);
-    public ImageView imgO= (ImageView)findViewById(R.id.imageView3);
-
-
-
-    VECTOR DE ID DE FIGURAS
-
-    private int ArrayImage[]={
-           R.drawable.blue,
-           R.drawable.green,
-           R.drawable.orange,
-           R.drawable.purple,
-           R.drawable.red,
-           R.drawable.yellow
-    };
-
-
-    GENERAR LA FIGURA DE MANERA RANDOM?
-
-    private int numRandom=(int)(Math.random()*6)+1;
-    public ImageView img1=(ImageView)findViewById(R.id.imageView);
-    public ImageView img2=(ImageView)findViewById(R.id.imageView2);
-    public ImageView img3=(ImageView)findViewById(R.id.imageView3);
-    public ImageView img4=(ImageView)findViewById(R.id.imageView4);
-    public ImageView img5=(ImageView)findViewById(R.id.imageView5);
-    public ImageView img6=(ImageView)findViewById(R.id.imageView6);
-    public ImageView img7=(ImageView)findViewById(R.id.imageView7);
-    public ImageView img8=(ImageView)findViewById(R.id.imageView8);
-
-
-    COMO LLENAR UN GRIDLAYOUT?
-
-     for(int f=0;f<9;f++){
-                Drawable d= getResources().getDrawable(ArrayImage[numRandom]);
-                img1.setImageDrawable(d);
-                Drawable d2= getResources().getDrawable(ArrayImage[numRandom]);
-                img2.setImageDrawable(d2);
-                Drawable d3= getResources().getDrawable(ArrayImage[numRandom]);
-                img3.setImageDrawable(d3);
-                Drawable d4= getResources().getDrawable(ArrayImage[numRandom]);
-                img4.setImageDrawable(d4);
-                Drawable d5= getResources().getDrawable(ArrayImage[numRandom]);
-                img5.setImageDrawable(d5);
-                Drawable d6= getResources().getDrawable(ArrayImage[numRandom]);
-                img6.setImageDrawable(d6);
-                Drawable d7= getResources().getDrawable(ArrayImage[numRandom]);
-                img7.setImageDrawable(d7);
-                Drawable d8= getResources().getDrawable(ArrayImage[numRandom]);
-                img8.setImageDrawable(d8);
-   */
