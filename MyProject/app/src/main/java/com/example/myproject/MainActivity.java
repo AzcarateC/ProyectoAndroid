@@ -80,16 +80,27 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setSinlgeEvent2(final GridLayout g_layout, final int f) {
+    private void setSinlgeEvent2(final GridLayout g_layout, final int idImg1) {
         for (int i = 0; i < g_layout.getChildCount(); i++) { //Para todas las imagenes
             ImageView im2 = (ImageView) g_layout.getChildAt(i); //Levanto la imagen
-            final int fin = i; //Guardo la id de la imagen
+            final int idImg2 = i; //Guardo la id de la imagen
             im2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //Agrego comportamiento onClick para la segunda imagen
 					//Muestro en pantalla las id de las dos imagenes!
-                    Toast.makeText(MainActivity.this, "Primer elemento" + f + " segundo:" + fin, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Primer elemento" + idImg1 + " segundo:" + idImg2, Toast.LENGTH_SHORT).show();
+					
+					/* Asi lo seguiria yo, me entusiasme y lo desglose abajo
+					
+					int exito;
+					intentarIntercambiar(idImg1,idImg2,exito); 
+					if (!exito){
+						Toast.makeText(MainActivity.this, "Movimiento no valido" , Toast.LENGTH_SHORT).show();
+					}
+					
+					*/
+					
 					//Devuelvo el comportamiento onclick para seleccionar una imagen
                     setSingleEvent(g_layout);
                     
@@ -100,6 +111,75 @@ public class MainActivity extends AppCompatActivity {
 
     }
 	
-	//Esta bueno!
+	/*
+	private void intentarIntercambiar(int idImg1, int idImg2, int exito){
+		
+		//La posicion en el vector la voy a usar para varias cosas asique es lo primero que quiero saber
+		Pair coordenadasImg1 := getCoordenadas(idImg1); //Falta hacer la funcion getCoordenadas
+		Pair coordenadasImg2 := getCoordenadas(idImg2);
+		
+		
+		//Tengo que asegurarme de que sean vecinos, sino el movimiento no es valido
+		if (sonVecinos(coordenadasImg1,coordenadasImg2)){ //Falta hacer sonVecinos
+		
+			//Genero una matriz temporal para probar el cambio
+			int[][] matrizParaProbar = new int[8][8];
+			copiarMatriz(matrizImage,matrizParaProbar); //Falta hacer copiarMatriz
+			
+			//Reemplazo 
+			intercambiar(matrizParaProbar,coordenadasImg1,coordenadasImg2) //Falta hacer intercambiar
+			
+			//Obtengo los puntos que matchearon
+			List<Pair> puntosQueDieronCoincidencia = new ArrayList<Pair>();
+			buscarCoincidencias(matrizParaProbar,puntosQueDieronCoincidencia); //Falta hacer buscarCoincidencias
+			
+			if (puntosQueDieronCoincidencia.isEmpty()) {
+				exito = 0;
+			} else {
+				exito = 1;
+				limpiarCoincidencias(matrizParaProbar,puntosQueDieronCoincidencia); //Falta hacer limpiarCoincidencias
+				matrizImage = matrizParaProbar; 
+				
+				// !!!! ESTO ES IMPORTANTE !!!!
+				//yo no se si hacer este cambio en la matriz haga que se actualize
+				//el layout, llegue hasta aca confiando en eso pero estaria bueno verificar que eso sea asi
+				//antes de seguir con esta solucion
+				
+				// Para probar se podria hacer alguna accion que cambie la id del primer elemento de la matriz por otro color
+				// y comprobar que se vea el cambio, validado eso me parece una buena solucion esta
+				
+			}
+		
+	
+	}
+	
+	private Pair getCoordenadas(int unaId){
+		//Recibe una id y devuelve la fila y columna donde esta ubicada en la matriz
+	}
+	
+	private boolean sonVecinos(Pair cor1, Pair cor2){
+		//Recibe cordenadas (x,y) y mira en la matriz si cor2 esta a la izquierda, derecha, arriba o abajo de cor1 y devuelve true o false
+	}
+	
+	private void copiarMatriz(int[][] matrizOrigen, int[][] matrizCopia){
+		//Recorre toda la matriz original copiando los valores en la matriz copia
+	}
+	
+	private void intercambiar(int[][] unaMatriz,Pair cor1,Pair cor2){
+		//Recibe una matriz y 2 coordenadas, intercambia los valores que hay en las coordenadas
+	}
+	
+	private void buscarCoincidencias(int[][] unaMatriz, List<Pair> puntosQueDieronCoincidencia){
+		//Recorre toda la matriz, por cada punto revisa si tiene tres o mas iguales a su derecha y hacia abajo, si hay coincidencias las agrega a la lista
+		//Nota: No importa que se guarden pares duplicados
+
+	}
+	
+	private void limpiarCoincidencias(int[][] unaMatriz, List<Pair> puntosQueDieronCoincidencia){
+		//Recorre la lista de coordenadas y los borra, debe colocar una id nula para cada posicion en la lista
+	}
+	
+	*/
+	
 
 }
