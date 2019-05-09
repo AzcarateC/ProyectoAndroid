@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
-                g_layout.addView(img, 30, 30);
+                g_layout.addView(img, 100, 100);
                 matrizImage[fila][colum] = numRandom;
             }
         }
@@ -101,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
 					
 					*/
 					
+					//<INICIO PRUEBAS PARA CAMBIAR IMAGEN>
+					
+					ponerEnVerde(g_layout,idImg1,idImg2);
+					
+					//<FIN PRUEBAS PARA CAMBIAR IMAGEN>
+					
 					//Devuelvo el comportamiento onclick para seleccionar una imagen
                     setSingleEvent(g_layout);
                     
@@ -110,6 +116,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+	
+	
+	
+	//PRUEBA PARA CAMBIAR IMAGEN
+	
+	private void ponerEnVerde(GridLayout g_layout,int idImg1,int idImg2){
+		//Toma 2 id de imagenes y las reemplaza por una gema verde
+						Resources res = getResources();
+						ImageView img1 = (ImageView) g_layout.getChildAt(idImg1);
+						ImageView img2 = (ImageView) g_layout.getChildAt(idImg2);
+						img1.setImageDrawable(res.getDrawable(ArrayImage[1])); //Cambio los dos dibujos clickeados por algo verde
+						img2.setImageDrawable(res.getDrawable(ArrayImage[1]));
+						
+					}
+	
+	//FIN PRUEBA PARA CAMBIAR IMAGEN
+	
 	
 	/*
 	private void intentarIntercambiar(int idImg1, int idImg2, int exito){
