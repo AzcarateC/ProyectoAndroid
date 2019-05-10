@@ -11,6 +11,8 @@ Para probar la app y debuguearla podés usar un emulador o conectar un celular pr
 Se va a generar un APK para debuguear, ubicado en MyProject\app\build\outputs\apk\debug
 3. Utiliza el comando gradlew installDebug.
 Se va a compilar e instalar en un dispositivo conectado o emulador en ejecucion
+
+Puede que tambien se requiera modificar el archivo local.properties con la direccion donde se encuentra el android SDK del usuario (modificar la linea sdk.dir=sdk.dir=C\:\\Users\\User-PC\\AppData\\Local\\Android\\Sdk )
 ```
 
 Comandos basicos de git
